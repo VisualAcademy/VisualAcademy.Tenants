@@ -1,0 +1,54 @@
+﻿@page
+@model VisualAcademy.Pages.AppointmentsTypes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentTypeModel[0].AppointmentTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentTypeModel[0].IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentTypeModel[0].DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentTypeModel[0].Tenant)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AppointmentTypeModel) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tenant.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -9,5 +9,6 @@ namespace VisualAcademy.Data {
         }
 
         public DbSet<TenantModel> Tenants { get; set; }
+        public DbSet<AppointmentTypeModel> AppointmentsTypes { get; set; }
     }
 }
