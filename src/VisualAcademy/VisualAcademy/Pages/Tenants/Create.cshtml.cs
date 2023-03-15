@@ -10,10 +10,7 @@ namespace VisualAcademy.Pages.Tenants
 
         public CreateModel(VisualAcademy.Data.ApplicationDbContext context) => _context = context;
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
+        public IActionResult OnGet() => Page();
 
         [BindProperty]
         public TenantModel TenantModel { get; set; } = default!;
