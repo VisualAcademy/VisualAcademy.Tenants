@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using VisualAcademy.Data;
 using VisualAcademy.Models;
 
 namespace VisualAcademy.Pages.Tenants
@@ -14,10 +9,7 @@ namespace VisualAcademy.Pages.Tenants
     {
         private readonly VisualAcademy.Data.ApplicationDbContext _context;
 
-        public DetailsModel(VisualAcademy.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public DetailsModel(VisualAcademy.Data.ApplicationDbContext context) => _context = context;
 
         public TenantModel TenantModel { get; set; } = default!;
 
