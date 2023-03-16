@@ -9,10 +9,7 @@ namespace VisualAcademy.Pages.Tenants
     {
         private readonly VisualAcademy.Data.ApplicationDbContext _context;
 
-        public DeleteModel(VisualAcademy.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public DeleteModel(VisualAcademy.Data.ApplicationDbContext context) => _context = context;
 
         [BindProperty]
         public TenantModel TenantModel { get; set; } = default!;
