@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using VisualAcademy.Data;
 using VisualAcademy.Models;
 
 namespace VisualAcademy.Pages.Tenants
@@ -30,7 +24,7 @@ namespace VisualAcademy.Pages.Tenants
                 return NotFound();
             }
 
-            var tenantmodel =  await _context.Tenants.FirstOrDefaultAsync(m => m.Id == id);
+            var tenantmodel = await _context.Tenants.FirstOrDefaultAsync(m => m.Id == id);
             if (tenantmodel == null)
             {
                 return NotFound();
@@ -69,9 +63,6 @@ namespace VisualAcademy.Pages.Tenants
             return RedirectToPage("./Index");
         }
 
-        private bool TenantModelExists(long id)
-        {
-            return _context.Tenants.Any(e => e.Id == id);
-        }
+        private bool TenantModelExists(long id) => _context.Tenants.Any(e => e.Id == id);
     }
 }
