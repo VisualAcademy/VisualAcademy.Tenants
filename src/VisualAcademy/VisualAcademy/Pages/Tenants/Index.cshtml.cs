@@ -12,9 +12,6 @@ namespace VisualAcademy.Pages.Tenants
 
         public IList<TenantModel> TenantModel { get; set; } = default!;
 
-        public async Task OnGetAsync()
-        {
-            TenantModel = await _context.Tenants.ToListAsync();
-        }
+        public async Task OnGetAsync() => TenantModel = await _context.Tenants.ToListAsync();
     }
 }
