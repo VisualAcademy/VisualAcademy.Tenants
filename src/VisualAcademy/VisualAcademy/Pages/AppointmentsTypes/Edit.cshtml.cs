@@ -67,9 +67,6 @@ namespace VisualAcademy.Pages.AppointmentsTypes
             return RedirectToPage("./Index");
         }
 
-        private bool AppointmentTypeModelExists(long id)
-        {
-            return _context.AppointmentsTypes.Any(e => e.Id == id);
-        }
+        private bool AppointmentTypeModelExists(long id) => _context.AppointmentsTypes.Any(e => e.Id == id);
     }
 }
