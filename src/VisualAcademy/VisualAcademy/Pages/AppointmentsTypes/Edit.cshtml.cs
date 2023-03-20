@@ -9,64 +9,63 @@ using Microsoft.EntityFrameworkCore;
 using VisualAcademy.Data;
 using VisualAcademy.Models;
 
-namespace VisualAcademy.Pages.AppointmentsTypes
+namespace VisualAcademy.Pages.AppointmentsTypes;
+
+public class EditModel : PageModel
 {
-    public class EditModel : PageModel
+    private readonly VisualAcademy.Data.ApplicationDbContext _context;
+
+    public EditModel(VisualAcademy.Data.ApplicationDbContext context) => _context = context;
+
+    [BindProperty]
+    public AppointmentTypeModel AppointmentTypeModel { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(long? id)
     {
-        private readonly VisualAcademy.Data.ApplicationDbContext _context;
-
-        public EditModel(VisualAcademy.Data.ApplicationDbContext context) => _context = context;
-
-        [BindProperty]
-        public AppointmentTypeModel AppointmentTypeModel { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(long? id)
+        if (id == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
 
-            var appointmenttypemodel =  await _context.AppointmentsTypes.FirstOrDefaultAsync(m => m.Id == id);
-            if (appointmenttypemodel == null)
-            {
-                return NotFound();
-            }
-            AppointmentTypeModel = appointmenttypemodel;
-           ViewData["TenantId"] = new SelectList(_context.Tenants, "Id", "Id");
+        var appointmenttypemodel =  await _context.AppointmentsTypes.FirstOrDefaultAsync(m => m.Id == id);
+        if (appointmenttypemodel == null)
+        {
+            return NotFound();
+        }
+        AppointmentTypeModel = appointmenttypemodel;
+       ViewData["TenantId"] = new SelectList(_context.Tenants, "Id", "Id");
+        return Page();
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        _context.Attach(AppointmentTypeModel).State = EntityState.Modified;
+
+        try
         {
-            if (!ModelState.IsValid)
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!AppointmentTypeModelExists(AppointmentTypeModel.Id))
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(AppointmentTypeModel).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AppointmentTypeModelExists(AppointmentTypeModel.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool AppointmentTypeModelExists(long id) => _context.AppointmentsTypes.Any(e => e.Id == id);
+        return RedirectToPage("./Index");
     }
+
+    private bool AppointmentTypeModelExists(long id) => _context.AppointmentsTypes.Any(e => e.Id == id);
 }
