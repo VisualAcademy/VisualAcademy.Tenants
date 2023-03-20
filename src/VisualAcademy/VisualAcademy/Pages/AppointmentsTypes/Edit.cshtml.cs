@@ -15,10 +15,7 @@ namespace VisualAcademy.Pages.AppointmentsTypes
     {
         private readonly VisualAcademy.Data.ApplicationDbContext _context;
 
-        public EditModel(VisualAcademy.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public EditModel(VisualAcademy.Data.ApplicationDbContext context) => _context = context;
 
         [BindProperty]
         public AppointmentTypeModel AppointmentTypeModel { get; set; } = default!;
